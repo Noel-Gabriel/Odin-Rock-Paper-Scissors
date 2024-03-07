@@ -1,0 +1,38 @@
+body {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap: 16px;
+    background: lightgrey;
+}
+
+/* * {border: 2px solid red;}*/
+
+.results {
+    display:flex;
+    flex-direction:column;
+    width: 400px;
+    height: 200px;
+    font-size: 24px;
+    justify-content: center;
+    align-items:center;
+    color:rgba(0, 153, 255, 0.882);
+    border: 2px solid rgba(0, 153, 255, 0.882);
+}
+
+h1 {
+    color: rgba(0, 153, 255, 0.882);;
+}
+
+.player-input {
+    display:flex;
+    gap:32px;
+}
+
+button {
+    width: 70px;
+    height: 30px;
+    border-radius:  8px;
+    background: rgba(0, 153, 255, 0.882);
+    color:white;
+}

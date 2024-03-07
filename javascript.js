@@ -66,11 +66,7 @@ function evaluateRound(player, computer) {
 
 // evaluation of whole game (scores)
 function evaluateGame() {   
-    let ans = `Player: ${player_wins} wins, Computer: ${computer_wins} wins. `;
-    if(player_wins === computer_wins) {
-        return ans + "Game ended in a draw!";
-    }
-    return (ans + ((player_wins > computer_wins)? "You win!" : "You lost!"));
+    return ((player_wins > computer_wins)? "You win!" : "You lost!");
 }
 
 // main loop
@@ -87,4 +83,49 @@ function gameLoop() {
     console.log(game); // debug
 }
 
-gameLoop();
+const div = document.querySelector(".player-input");
+let play_buttons = Array.from(div.children);
+
+const res = document.querySelector(".move");
+const score = document.querySelector(".score");
+const new_game = document.createElement("button");
+
+new_game.textContent = "Restart";
+new_game.style.cssText = "display: none;";
+new_game.addEventListener("click", e => restart());
+
+div.appendChild(new_game);
+
+function end_game() {
+    play_buttons.forEach(button => button.style.display = "none");
+    new_game.style.cssText = "display: flex; justify-content:center; align-items:center;"
+}
+
+function restart() {
+    play_buttons.forEach(button => button.style.cssText = "display: flex; justify-content:center; align-items:center;");
+    player_wins = 0;
+    computer_wins = 0;
+    res.textContent = "Your Move?";
+    new_game.style.display = "none";
+    update_score();
+}
+
+function update_score() {
+    score.textContent = `Player: ${player_wins}\n Computer ${computer_wins}`;
+}
+
+
+
+play_buttons.forEach(button => button.addEventListener("click", (e) => {
+    let computer = getComputerChoice();
+    let player = button.className;
+    let result = evaluateRound(player, computer);
+    update_score();
+    if(player_wins == 5 || computer_wins == 5) {
+        let end_result = evaluateGame();
+        res.textContent = end_result;
+        end_game();
+    } else {
+        res.textContent = result;
+    }
+}));
